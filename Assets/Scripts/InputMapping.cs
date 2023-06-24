@@ -7,11 +7,13 @@ public class InputMapping : MonoBehaviour
 {
     private MovementController _movementController;
     private DashController _dashController;
+    private CombatController _combatController;
 
     void Start()
     {
         _movementController = GetComponent<MovementController>();
         _dashController = GetComponent<DashController>();
+        _combatController = GetComponent<CombatController>();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -23,6 +25,7 @@ public class InputMapping : MonoBehaviour
     {
         if (context.performed)
         {
+            _combatController.OnQuickAttack();
         }
     }
 
