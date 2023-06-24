@@ -4,10 +4,10 @@ using UnityEngine;
 
 public static class Utility
 {
-    public static Attack LaunchAttack(GameObject parent, GameObject prefab, Vector2 direction)
+    public static Att_Fire_Quick LaunchAttack(GameObject parent, GameObject prefab, Vector2 direction)
     {
         GameObject attackObj = GameObject.Instantiate(prefab, parent.transform);
-        Attack att = attackObj.GetComponent<Attack>();
+        Att_Fire_Quick att = attackObj.GetComponent<Att_Fire_Quick>();
         att.Launch(direction);
         return att;
     }

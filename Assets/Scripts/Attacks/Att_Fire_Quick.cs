@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Att_Fire_Quick : Attack
 {
-    void Start() { }
+    override protected void OnAwake()
+    {
+        StartCoroutine(SetTimedDestruction(0.25f));
+    }
 }
