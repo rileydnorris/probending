@@ -10,6 +10,7 @@ public class Attack : MonoBehaviour
     public float damage;
 
     private Rigidbody2D _rb;
+    private BoxCollider2D _collider;
     private Animator _anim;
     private bool _destroyOnCollision = false;
     private string _sender;
@@ -21,6 +22,7 @@ public class Attack : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
+        _collider = GetComponent<BoxCollider2D>();
         OnAwake();
     }
 
@@ -60,5 +62,7 @@ public class Attack : MonoBehaviour
         _anim.SetTrigger(Keys.DoComplete);
         if (collidedObject)
             collidedObject.AddDamage(damage, true, _direction);
+        _collider.enabled = false;
+        _rb.velocity = Vector2.zero;
     }
 }

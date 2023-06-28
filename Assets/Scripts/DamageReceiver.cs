@@ -18,11 +18,16 @@ public class DamageReceiver : MonoBehaviour
 
     public void AddDamage(float damage, bool doKnockback = true, Vector2? direction = null)
     {
+        // TODO: Disable movement
+
         currentDamage += damage;
+        if (currentDamage > maxDamage)
+            currentDamage = maxDamage;
+
         if (doKnockback && direction != null)
         {
             float knockbackForce = (currentDamage / maxDamage) * maxKnockbackForce;
-            _rb.AddForce(direction ?? Vector2.right * knockbackForce, ForceMode2D.Impulse);
+            _rb.AddForce((direction ?? Vector2.right) * knockbackForce, ForceMode2D.Impulse);
         }
     }
 }
