@@ -6,6 +6,7 @@ public class Att_Fire_Quick : Attack
 {
     override protected void OnAwake()
     {
-        StartCoroutine(SetTimedDestruction(0.25f));
+        SetCollisionDestruction();
+        StartCoroutine(SetTimedDestruction(1f));
     }
 }

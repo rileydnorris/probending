@@ -7,8 +7,13 @@ RequireComponent(typeof(Animator))]
 public class Attack : MonoBehaviour
 {
     public float launchForce;
+    public float damage;
+
     private Rigidbody2D _rb;
     private Animator _anim;
+    private bool _destroyOnCollision = false;
+    private string _sender;
+    private Vector2 _direction;
 
     protected virtual void OnAwake() { }
 
@@ -19,32 +24,41 @@ public class Attack : MonoBehaviour
         OnAwake();
     }
 
-    public void Launch(Vector2 direction)
+    public void Launch(Vector2 direction, GameObject sendingObj)
     {
-        if (direction == Vector2.zero)
-            direction = Vector2.right;
+        _direction = direction;
+        _sender = sendingObj.name;
 
-        _rb.AddForce(direction * launchForce, ForceMode2D.Impulse);
+        if (_direction == Vector2.zero)
+            _direction = Vector2.right;
+
+        _rb.AddForce(_direction * launchForce, ForceMode2D.Impulse);
     }
 
     protected IEnumerator SetTimedDestruction(float duration)
     {
         yield return new WaitForSeconds(duration);
-        _anim.SetTrigger(Keys.DoComplete);
+        Destroy();
     }
 
-    protected void SetCollisionDestruction(Animation anim)
+    protected void SetCollisionDestruction()
     {
-
+        _destroyOnCollision = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // TODO: Add player collision
-
-        if (other.gameObject.layer == 6)
+        if (_destroyOnCollision && (other.gameObject.layer == 6 || other.gameObject.layer == 3) && other.gameObject.name != _sender)
         {
-            _anim.SetTrigger(Keys.DoComplete);
+            DamageReceiver collidedObj = other.gameObject.GetComponent<DamageReceiver>();
+            Destroy(collidedObj);
         }
+    }
+
+    void Destroy(DamageReceiver collidedObject = null)
+    {
+        _anim.SetTrigger(Keys.DoComplete);
+        if (collidedObject)
+            collidedObject.AddDamage(damage, true, _direction);
     }
 }

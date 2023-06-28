@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launchForce: 13
+  damage: 10
 --- !u!61 &8382682562936180981
 BoxCollider2D:
   m_ObjectHideFlags: 0

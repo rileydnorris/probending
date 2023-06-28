@@ -8,7 +8,7 @@ public static class Utility
     {
         GameObject attackObj = GameObject.Instantiate(prefab, parent.transform);
         Att_Fire_Quick att = attackObj.GetComponent<Att_Fire_Quick>();
-        att.Launch(direction);
+        att.Launch(direction, parent);
         return att;
     }
 }
