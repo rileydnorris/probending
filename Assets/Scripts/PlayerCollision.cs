@@ -12,11 +12,12 @@ public class PlayerCollision : MonoBehaviour
     {
         if (_isColliding)
         {
-            RaycastHit2D colliderMin = Physics2D.Raycast(_userCollider.bounds.min, Vector2.down, 1f, 1 << 6);
-            RaycastHit2D colliderMax = Physics2D.Raycast(_userCollider.bounds.max, Vector2.down, 1f, 1 << 6);
+            RaycastHit2D colliderMin = Physics2D.Raycast(_userCollider.bounds.min, Vector2.down, 1f, 1 << 7);
+            RaycastHit2D colliderMax = Physics2D.Raycast(_userCollider.bounds.max, Vector2.down, 1f, 1 << 7);
 
             if (colliderMin && colliderMax && colliderMin.collider.gameObject.name == gameObject.name && colliderMax.collider.gameObject.name == gameObject.name)
             {
+                Debug.Log("OUT");
                 // TODO: Kill the player
             }
         }
