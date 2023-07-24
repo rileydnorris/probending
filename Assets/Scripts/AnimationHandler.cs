@@ -6,15 +6,17 @@ using UnityEngine;
 public class AnimationHandler : MonoBehaviour
 {
     private Animator _anim;
+    private SpriteRenderer _spriteRen;
 
     void Start()
     {
         _anim = GetComponent<Animator>();
+        _spriteRen = GetComponent<SpriteRenderer>();
     }
 
     public void SetPlayerDirection(bool isRight)
     {
-        gameObject.transform.rotation = isRight ? Quaternion.identity : Quaternion.Euler(0, 180, 0);
+        _spriteRen.flipX = !isRight;
     }
 
     public void SetRunning(bool isRunning)
@@ -30,5 +32,15 @@ public class AnimationHandler : MonoBehaviour
     public void ResetQuickAttacking()
     {
         _anim.SetBool("isQuickAttacking", false);
+    }
+
+    public void SetDashing()
+    {
+        _anim.SetBool("isDashing", true);
+    }
+
+    public void ResetDashing()
+    {
+        _anim.SetBool("isDashing", false);
     }
 }

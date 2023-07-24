@@ -7,6 +7,7 @@ public class DashController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private ObjectStatus _status;
+    private AnimationHandler _anim;
 
     public float dashDuration = 0.5f;
     public float dashCooldown = 3.0f;
@@ -15,6 +16,7 @@ public class DashController : MonoBehaviour
     private void Start()
     {
         _status = GetComponent<ObjectStatus>();
+        _anim = GetComponent<AnimationHandler>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -38,6 +40,7 @@ public class DashController : MonoBehaviour
     {
         if (_status.currentDashState == DashState.Ready)
         {
+            _anim.SetDashing();
             StartCoroutine(PerformDash());
             StartCoroutine(StartDashCooldown());
         }
