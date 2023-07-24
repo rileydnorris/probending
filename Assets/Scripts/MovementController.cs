@@ -8,11 +8,21 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(AnimationHandler))]
 public class MovementController : MonoBehaviour
 {
-    public float speed = 5.0f;
+    public float normalSpeed = 6.0f;
+    public float slowdownSpeed = 2.0f;
     private Vector2 _movementVector;
     private ObjectStatus _status;
     private Rigidbody2D _rigidBody;
     private AnimationHandler _anim;
+
+    private float speed
+    {
+        get
+        {
+            // Return slower speed if user is attacking
+            return _status.isAttacking ? slowdownSpeed : normalSpeed;
+        }
+    }
 
     public bool isMoving
     {

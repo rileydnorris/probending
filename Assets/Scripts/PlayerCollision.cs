@@ -17,7 +17,6 @@ public class PlayerCollision : MonoBehaviour
 
             if (colliderMin && colliderMax && colliderMin.collider.gameObject.name == gameObject.name && colliderMax.collider.gameObject.name == gameObject.name)
             {
-                Debug.Log("OUT");
                 // TODO: Kill the player
             }
         }
