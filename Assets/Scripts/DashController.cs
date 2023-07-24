@@ -20,33 +20,26 @@ public class DashController : MonoBehaviour
 
     IEnumerator PerformDash()
     {
-        _status.DashState = DashState.Dashing;
+        _status.currentDashState = DashState.Dashing;
         rb.velocity = new Vector2(rb.velocity.x * dashMultiplier, rb.velocity.y * dashMultiplier);
 
         yield return new WaitForSeconds(dashDuration);
 
-        _status.DashState = DashState.Cooldown;
+        _status.currentDashState = DashState.Cooldown;
     }
 
     IEnumerator StartDashCooldown()
     {
         yield return new WaitForSeconds(dashCooldown);
-        _status.DashState = DashState.Ready;
+        _status.currentDashState = DashState.Ready;
     }
 
     public void OnDash()
     {
-        if (_status.DashState == DashState.Ready)
+        if (_status.currentDashState == DashState.Ready)
         {
             StartCoroutine(PerformDash());
             StartCoroutine(StartDashCooldown());
         }
     }
-}
-
-public enum DashState
-{
-    Ready,
-    Dashing,
-    Cooldown
 }

@@ -21,7 +21,7 @@ public class CombatController : MonoBehaviour
 
     public void OnQuickAttack()
     {
-        Utility.LaunchAttack(gameObject, fire_quick, _status.MovementVector);
+        Utility.LaunchAttack(gameObject, fire_quick, _status.movementVector);
     }
 
     public void OnStrongAttack()
