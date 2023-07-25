@@ -29,5 +29,12 @@ public class DamageReceiver : MonoBehaviour
             float knockbackForce = (currentDamage / maxDamage) * maxKnockbackForce;
             _rb.AddForce((direction ?? Vector2.right) * knockbackForce, ForceMode2D.Impulse);
         }
+
+        // If object is animated, apply hurt animation
+        AnimationHandler anim = GetComponent<AnimationHandler>();
+        if (anim)
+        {
+            anim.SetHurt();
+        }
     }
 }

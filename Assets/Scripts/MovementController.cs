@@ -51,7 +51,11 @@ public class MovementController : MonoBehaviour
 
     bool CanMove()
     {
-        return !_status.isAI && _status.currentDashState != DashState.Dashing && _status.currentKnockbackState != KnockbackState.InKnockback;
+        bool isNotAI = !_status.isAI;
+        bool isNotDashing = _status.currentDashState != DashState.Dashing;
+        bool isNotBeingKnockbacked = _status.currentKnockbackState != KnockbackState.InKnockback;
+        bool isAlive = _status.isAlive;
+        return isNotAI && isNotDashing && isNotBeingKnockbacked && isAlive;
     }
 
     void HandleAnimation()

@@ -43,4 +43,24 @@ public class AnimationHandler : MonoBehaviour
     {
         _anim.SetBool("isDashing", false);
     }
+
+    public void SetHurt()
+    {
+        _anim.SetBool("isHurt", true);
+    }
+
+    public void ResetHurt()
+    {
+        _anim.SetBool("isHurt", false);
+    }
+
+    public void SetDeath()
+    {
+        _anim.SetBool("isDead", true);
+    }
+
+    public void ResetDeath()
+    {
+        _anim.SetBool("isDead", false);
+    }
 }

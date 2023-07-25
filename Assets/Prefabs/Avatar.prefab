@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 819127714592773536}
   - component: {fileID: 4785969918065145450}
   - component: {fileID: 1633650962}
-  - component: {fileID: 1633650963}
   m_Layer: 3
   m_Name: Avatar
   m_TagString: Player
@@ -261,7 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a889e162a65754f7786c7b8485e4c4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  normalSpeed: 6
+  slowdownSpeed: 2
 --- !u!114 &4466010551660635635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashDuration: 0.1
   dashCooldown: 1.5
-  dashMultiplier: 9
+  dashMultiplier: 6
 --- !u!114 &4466010551660635637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,15 +351,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1633650963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4466010551660635644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 921dedb55665041138f00b72c0859d57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

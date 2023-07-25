@@ -17,7 +17,18 @@ public class PlayerCollision : MonoBehaviour
 
             if (colliderMin && colliderMax && colliderMin.collider.gameObject.name == gameObject.name && colliderMax.collider.gameObject.name == gameObject.name)
             {
-                // TODO: Kill the player
+                // Killing the player
+                AnimationHandler anim = _userCollider.GetComponent<AnimationHandler>();
+                if (anim)
+                {
+                    anim.SetDeath();
+                }
+
+                ObjectStatus status = _userCollider.GetComponent<ObjectStatus>();
+                if (status)
+                {
+                    status.isAlive = false;
+                }
             }
         }
     }

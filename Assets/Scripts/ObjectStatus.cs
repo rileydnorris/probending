@@ -8,6 +8,7 @@ public class ObjectStatus : MonoBehaviour
     public KnockbackState currentKnockbackState { get; set; } = KnockbackState.NotInKnockback;
     public Vector2 movementVector { get; set; } = Vector2.zero;
     public bool isAttacking { get; set; } = false;
+    public bool isAlive { get; set; } = true;
     public bool isAI = false;
 }
 
