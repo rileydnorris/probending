@@ -9,7 +9,17 @@ public class ObjectStatus : MonoBehaviour
     public Vector2 movementVector { get; set; } = Vector2.zero;
     public bool isAttacking { get; set; } = false;
     public bool isAlive { get; set; } = true;
+    public bool isDisabled { get; set; } = false;
     public bool isAI = false;
+
+    public void Reset()
+    {
+        currentDashState = DashState.Ready;
+        currentKnockbackState = KnockbackState.NotInKnockback;
+        movementVector = Vector2.zero;
+        isAttacking = false;
+        isAlive = true;
+    }
 }
 
 public enum DashState

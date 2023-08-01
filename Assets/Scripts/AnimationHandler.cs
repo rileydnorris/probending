@@ -14,6 +14,20 @@ public class AnimationHandler : MonoBehaviour
         _spriteRen = GetComponent<SpriteRenderer>();
     }
 
+    public void Reset()
+    {
+        if (_anim == null)
+        {
+            _anim = GetComponent<Animator>();
+        }
+
+        SetRunning(false);
+        ResetQuickAttacking();
+        ResetDashing();
+        ResetHurt();
+        ResetDeath();
+    }
+
     public void SetPlayerDirection(bool isRight)
     {
         _spriteRen.flipX = !isRight;

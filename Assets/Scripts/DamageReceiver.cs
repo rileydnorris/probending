@@ -18,8 +18,6 @@ public class DamageReceiver : MonoBehaviour
 
     public void AddDamage(float damage, bool doKnockback = true, Vector2? direction = null)
     {
-        // TODO: Disable movement
-
         currentDamage += damage;
         if (currentDamage > maxDamage)
             currentDamage = maxDamage;
@@ -36,5 +34,32 @@ public class DamageReceiver : MonoBehaviour
         {
             anim.SetHurt();
         }
+    }
+
+    public void Kill()
+    {
+        AnimationHandler anim = GetComponent<AnimationHandler>();
+        if (anim)
+        {
+            anim.SetDeath();
+        }
+
+        ObjectStatus status = GetComponent<ObjectStatus>();
+        if (status)
+        {
+            status.isAlive = false;
+            status.isDisabled = true;
+        }
+
+        GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (gm)
+        {
+            gm.EndRound();
+        }
+    }
+
+    public void Reset()
+    {
+        currentDamage = 0;
     }
 }
