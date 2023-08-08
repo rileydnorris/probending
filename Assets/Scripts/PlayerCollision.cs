@@ -4,42 +4,38 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private bool _isColliding = false;
-    private Collider2D _userCollider;
+    private List<Collider2D> _userColliders = new List<Collider2D>();
+    private bool _isColliding
+    {
+        get { return _userColliders.Count > 0; }
+    }
 
     void Update()
     {
         if (_isColliding)
         {
-            if (_userCollider == null)
+            _userColliders.ForEach((col) =>
             {
-                _isColliding = false;
-                return;
-            }
+                CheckForOOB(col);
+            });
+        }
+    }
 
-            RaycastHit2D colliderMin = Physics2D.Raycast(_userCollider.bounds.min, Vector2.down, 1f, 1 << 7);
-            RaycastHit2D colliderMax = Physics2D.Raycast(_userCollider.bounds.max, Vector2.down, 1f, 1 << 7);
+    void CheckForOOB(Collider2D col)
+    {
+        RaycastHit2D colliderMin = Physics2D.Raycast(col.bounds.min, Vector2.down, 1f, 1 << 7);
+        RaycastHit2D colliderMax = Physics2D.Raycast(col.bounds.max, Vector2.down, 1f, 1 << 7);
 
-            if (colliderMin)
+        if (colliderMin && colliderMax && colliderMin.collider.gameObject.name == gameObject.name && colliderMax.collider.gameObject.name == gameObject.name)
+        {
+            // Killing the player
+            Debug.Log("Killing");
+            DamageReceiver playerDamage = col.GetComponent<DamageReceiver>();
+            if (playerDamage)
             {
-                Debug.Log("Min: " + _userCollider.bounds.min);
+                playerDamage.Kill();
             }
-            if (colliderMax)
-            {
-                // Debug.Log("Max: " + colliderMax.collider.gameObject.name);
-            }
-
-            if (colliderMin && colliderMax && colliderMin.collider.gameObject.name == gameObject.name && colliderMax.collider.gameObject.name == gameObject.name)
-            {
-                Debug.Log("Killing");
-                // Killing the player
-                DamageReceiver playerDamage = _userCollider.GetComponent<DamageReceiver>();
-                if (playerDamage)
-                {
-                    playerDamage.Kill();
-                }
-                _isColliding = false;
-            }
+            _userColliders.Remove(col);
         }
     }
 
@@ -48,13 +44,12 @@ public class PlayerCollision : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log(other.name);
-            _userCollider = other;
-            _isColliding = true;
+            _userColliders.Add(other);
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        _isColliding = false;
+        _userColliders.Remove(other);
     }
 }

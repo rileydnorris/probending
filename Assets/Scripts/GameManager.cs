@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int _numRounds = 3;
-    private int _currentRound = 1;
     [SerializeField]
     private GameObject _player1;
     [SerializeField]
     private GameObject _player2;
+    private int _numRounds = 3;
+    private int _currentRound = 1;
+    private UIManager uiManager;
 
     void Start()
     {
+        uiManager = GetComponent<UIManager>();
         StartRound();
     }
 
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
     public void StartRound()
     {
         // TODO: Start countdown
+        uiManager.SetRoundText(_currentRound);
         Debug.Log("Starting Round");
         ResetPlayer();
     }
