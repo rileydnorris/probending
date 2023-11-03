@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameStatus
+{
+    StartingGame,
+    InGame,
+    EndRound,
+    EndGame
+}
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
@@ -11,6 +19,8 @@ public class GameManager : MonoBehaviour
     private int _numRounds = 3;
     private int _currentRound = 1;
     private UIManager uiManager;
+
+    private GameStatus _gameStatus = GameStatus.StartingGame;
 
     void Start()
     {
@@ -37,34 +47,49 @@ public class GameManager : MonoBehaviour
     {
         // TODO: how game over screen
         Debug.Log("Game ending");
+        UpdateGameStatus(GameStatus.EndGame);
+    }
+
+    IEnumerator StartRoundAfter()
+    {
+        UpdateGameStatus(GameStatus.StartingGame);
+        yield return new WaitForSeconds(3.0f);
+        StartRound();
+    }
+
+    void UpdateGameStatus(GameStatus gs)
+    {
+        _gameStatus = gs;
+        uiManager.SetRoundText(_currentRound);
+        uiManager.UpdateUI(_gameStatus);
     }
 
     public void StartRound()
     {
         // TODO: Start countdown
-        uiManager.SetRoundText(_currentRound);
-        Debug.Log("Starting Round");
         ResetPlayer();
+        UpdateGameStatus(GameStatus.InGame);
     }
 
     public void EndRound()
     {
         // TODO: Show "start next round" prompt
         Debug.Log("Ending Round");
-        _currentRound += 1;
-        if (_currentRound > _numRounds)
+        UpdateGameStatus(GameStatus.EndRound);
+        if (_currentRound >= _numRounds)
         {
             EndGame();
         }
         else
         {
+            _currentRound += 1;
             StartCoroutine(StartRoundAfter());
         }
     }
 
-    IEnumerator StartRoundAfter()
+    public void RestartGame()
     {
-        yield return new WaitForSeconds(3.0f);
-        StartRound();
+        _currentRound = 1;
+        StartCoroutine(StartRoundAfter());
     }
 }
